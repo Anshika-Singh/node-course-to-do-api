@@ -6,9 +6,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 var app = express();
+const port = process.env.PORT || 3000;
 
-app.listen(3000, () => {
-	console.log('Started on port 3000')
+app.listen(port, () => {
+	console.log(`Started on port ${port}`)
 });
 
 app.use(bodyParser.json());
