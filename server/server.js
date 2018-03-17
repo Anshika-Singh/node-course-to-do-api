@@ -1,6 +1,7 @@
 const {mongoose} = require('./db/mongoose.js');
 const {Todo} = require('./models/todo.js');
 const {User} = require('./models/user.js');
+const {authenticate} = require('./middleware/authenticate.js');
 
 const _ = require('lodash');
 const {ObjectId} = require('mongodb');
@@ -112,7 +113,9 @@ app.post('/users', (req, res) => {
 	});
 });
 
-
+app.get('/users/me', authenticate, (req,res) => {
+	res.send(req.user);
+});
 
 
 
