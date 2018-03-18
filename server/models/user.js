@@ -95,14 +95,23 @@ UserSchema.pre('save', function(next) {
 		bcrypt.genSalt(10, (err, salt) => {
 			bcrypt.hash(user.password, salt, (err, hash)=> {
 				user.password = hash;
-				console.log(hash);
 				next();
 			});
 		});
 	} else {
 		next();
 	}
-})
+});
+
+UserSchema.methods.removeToken = function(token) {
+	var user = this;
+
+	return user.update({
+		$pull : {
+			tokens: { token }
+		}
+	});	
+};
 
 var User = mongoose.model('User', UserSchema);
 
